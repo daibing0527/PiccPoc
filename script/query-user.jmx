@@ -11,7 +11,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="录入验证码登录" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="我的-点击个人头像" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -115,7 +115,7 @@
         <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="路径变量" enabled="true">
           <stringProp name="BeanShellSampler.query">//String Srcpath = vars.get(&quot;SrcPath&quot;);
 //vars.put(&quot;path&quot;,Srcpath+&quot;/lifeapp-uic/api/user/login-bind-by-password&quot;);
-vars.put(&quot;path&quot;,&quot;/lifeapp-uic/api/user/login-bind-by-password&quot;);
+vars.put(&quot;path&quot;,&quot;/ucsp-web/api/user/query-user&quot;);
 
 </stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -129,74 +129,7 @@ vars.put(&quot;path&quot;,&quot;/lifeapp-uic/api/user/login-bind-by-password&quo
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="入参查询" enabled="false"/>
-          <hashTree>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询请求数据" enabled="true">
-              <stringProp name="dataSource">auto_server</stringProp>
-              <stringProp name="queryType">Select Statement</stringProp>
-              <stringProp name="query">select * from t_cust_user_login_record order by random() limit 1</stringProp>
-              <stringProp name="queryArguments"></stringProp>
-              <stringProp name="queryArgumentsTypes"></stringProp>
-              <stringProp name="variableNames"></stringProp>
-              <stringProp name="resultVariable">requestSqlObject</stringProp>
-              <stringProp name="queryTimeout">180</stringProp>
-              <stringProp name="resultSetHandler">Store as String</stringProp>
-            </JDBCSampler>
-            <hashTree>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="保存请求参数" enabled="false">
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="script">import java.util.Random;
-
-Object requestSqlObject = vars.getObject(&quot;requestSqlObject&quot;);
-
-String userName = requestSqlObject.get(0).get(&quot;user_name&quot;);
-vars.put(&quot;userName&quot;,userName);
-</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="返回数据查询" enabled="true"/>
-          <hashTree>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据代价" enabled="true">
-              <stringProp name="dataSource">cust_user_dev</stringProp>
-              <stringProp name="queryType">Select Statement</stringProp>
-              <stringProp name="query">explain select * from t_cust_user_login_record where user_name = &apos;15101130999&apos; and login_time = &apos;2020-08-12   02:02:41&apos; and platform = &apos;8&apos; and login_device = &apos;EML-AL00 HUAWEI&apos;</stringProp>
-              <stringProp name="queryArguments"></stringProp>
-              <stringProp name="queryArgumentsTypes"></stringProp>
-              <stringProp name="variableNames"></stringProp>
-              <stringProp name="resultVariable"></stringProp>
-              <stringProp name="queryTimeout">180</stringProp>
-              <stringProp name="resultSetHandler">Store as String</stringProp>
-            </JDBCSampler>
-            <hashTree/>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
-              <stringProp name="dataSource">cust_user_dev</stringProp>
-              <stringProp name="queryType">Select Statement</stringProp>
-              <stringProp name="query">select * from t_cust_user_login_record where user_name = &apos;15101130999&apos; and login_time = &apos;2020-08-12   02:02:41&apos; and platform = &apos;8&apos; and login_device = &apos;EML-AL00 HUAWEI&apos;</stringProp>
-              <stringProp name="queryArguments"></stringProp>
-              <stringProp name="queryArgumentsTypes"></stringProp>
-              <stringProp name="variableNames"></stringProp>
-              <stringProp name="resultVariable">userResult</stringProp>
-              <stringProp name="queryTimeout">180</stringProp>
-              <stringProp name="resultSetHandler">Store as String</stringProp>
-            </JDBCSampler>
-            <hashTree>
-              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="保存请求参数" enabled="true">
-                <boolProp name="resetInterpreter">false</boolProp>
-                <stringProp name="parameters"></stringProp>
-                <stringProp name="filename"></stringProp>
-                <stringProp name="script">import java.util.Random;
-
-Object userResult = vars.getObject(&quot;userResult&quot;);
-log.info(&quot;userResult======&quot;+userResult);</stringProp>
-              </BeanShellPostProcessor>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="录入验证码登录" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录并获取登录状态" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
@@ -227,7 +160,7 @@ log.info(&quot;userResult======&quot;+userResult);</stringProp>
             <stringProp name="HTTPSampler.response_timeout"></stringProp>
             <stringProp name="HTTPSampler.protocol">https</stringProp>
             <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-            <stringProp name="HTTPSampler.path">${path}</stringProp>
+            <stringProp name="HTTPSampler.path">/lifeapp-uic/api/user/login-bind-by-password</stringProp>
             <stringProp name="HTTPSampler.method">POST</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -255,168 +188,156 @@ log.info(&quot;userResult======&quot;+userResult);</stringProp>
 
 String response_data = prev.getResponseDataAsString(); //获取请求返回值。注意此处只能获取到String类型;
 log.info(&quot;response_data=&quot;+response_data);
-JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;</stringProp>
+JSONObject data = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;
+
+String token = data.get(&quot;token&quot;);
+log.info(&quot;token======&quot;+token);
+vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="数据校验" enabled="true">
-            <stringProp name="BeanShellSampler.query">import com.alibaba.fastjson.*;
-import java.util.*;
-import org.apache.commons.lang3.StringUtils;
-import java.text.SimpleDateFormat;
-
-//时间格式
-SimpleDateFormat sdf =  new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
-
-
-//定义校验返回字段
-String dataResult = &quot;true&quot;;
-String dataMessage = &quot;success&quot;;
-StringBuffer buffer = new StringBuffer();
-boolean flag = true;
-
-//获取数据库查询数据和接口返回数据
-Object sqlObj = vars.getObject(&quot;userResult&quot;);
-
-String resData = prev.getResponseDataAsString();
-Map dataObj = JSONObject.parseObject(resData);
-log.info(&quot;dataObj====&quot;+dataObj);
-
-	//数据校验方法
-	boolean compateData(Map map,Object object){
-		List list1 = new ArrayList();
-		if(map.isEmpty()){
-			log.info(&quot;不校验&quot;);	
-			return true;
-		}else{
-			log.info(&quot;校验&quot;);	
-			//获取prpLagencyVo中key
-			Set set = map.keySet();
-			for(String key: set){
-				list1.add(key);
-			}
-//			for(int i = 0;i&lt;list1.size();i++){
-//				log.info(&quot;key=====&quot;+list1.get(i));	
-//			}
-			
-			//循环比较接口和数据库的值
-			for(int i = 0;i&lt;list1.size();i++){
-				String sqlValue = &quot;&quot;;
-				String sqlKey = &quot;&quot;;
-				String key = list1.get(i);
-				String value = &quot;&quot;;
-				if(map.get(key)!=null){
-					value = String.valueOf(map.get(key));
-				}
-				if(value!=null&amp;&amp;!&quot;&quot;.equals(value)){
-//					log.info(&quot;vokey-value is not null&quot;);
-					StringBuffer newStr = new StringBuffer();
-					char[] keyChar = key.toCharArray();
-					for(int a = 0; a &lt; keyChar.length;a++){
-						if(keyChar[a]&gt;=&apos;A&apos;&amp;&amp;keyChar[a]&lt;=&apos;Z&apos;){
-							newStr.append(&quot;_&quot;);
-							newStr.append(Character.toLowerCase(keyChar[a]));
-						}else{
-							newStr.append(keyChar[a]);
-							sqlKey = String.valueOf(newStr);
-							log.info(sqlKey);
-						}
-					}
-				}
-				if(object.get(0).get(sqlKey)!=null&amp;&amp;!&quot;&quot;.equals(object.get(0).get(sqlKey))){
-					if(sqlKey.contains(&quot;time&quot;)||sqlKey.equals(&quot;tkey&quot;)){
-						log.info(&quot;------------------&quot;+object.get(0).get(sqlKey).toString());
-						String time = sdf.format(sdf.parse(object.get(0).get(sqlKey).toString()));
-						log.info(&quot;sqlKey=&quot;+sqlKey+&quot;,sqlValue=&quot;+time);
-						log.info(&quot;VoKey=&quot;+key+&quot;,VoValue=&quot;+String.valueOf(map.get(key)));
-						if(!time.equals(map.get(key).toString())){
-//							dataResult=&quot;false&quot;;
-//							dataMessage=key+&quot;接口与数据库返回不一致!!!&quot;;
-//							flag = false;
-//							break;
-						}
-					}else{
-						log.info(&quot;sqlKey=&quot;+sqlKey+&quot;,sqlValue=&quot;+String.valueOf(object.get(0).get(sqlKey)));
-						log.info(&quot;VoKey=&quot;+key+&quot;,VoValue=&quot;+String.valueOf(map.get(key)));
-						if(!object.get(0).get(sqlKey).toString().equals(map.get(key).toString())){
-							dataResult=&quot;false&quot;;
-							dataMessage=key+&quot;接口与数据库返回不一致!!!&quot;;
-							flag = false;
-							break;
-						}
-					}
-					
-					
-				}else{
-					if(key.equals(&quot;login_time&quot;)||key.equals(&quot;login_device&quot;)||key.equals(&quot;user_name&quot;)||key.equals(&quot;platform&quot;)||key.equals(&quot;user_id&quot;)){
-						if(map.get(key).toString()!=null&amp;&amp;!&quot;&quot;.equals(map.get(key).toString())){
-							dataResult=&quot;false&quot;;
-							dataMessage=key+&quot;接口与数据库返回不一致!!!&quot;;
-							flag = false;
-							break;
-						}		
-					}else{
-						flag = true;	
-					}
-				}
-				
-			}
-		}	
-		return flag;
-	}
-
-
-	compateData(dataObj,sqlObj);
-
-
-vars.put(&quot;dataResult&quot;,dataResult);
-vars.put(&quot;dataMessage&quot;,dataMessage);
-
-
-
-
-
-
-</stringProp>
-            <stringProp name="BeanShellSampler.filename"></stringProp>
-            <stringProp name="BeanShellSampler.parameters"></stringProp>
-            <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
-          </BeanShellSampler>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
-            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell断言" enabled="true">
-              <stringProp name="BeanShellAssertion.query"> String result = vars.get(&quot;dataResult&quot;);
- String message = vars.get(&quot;dataMessage&quot;);
-if(&quot;true&quot;.equals(result)){
-	Failure = false;
-	FailureMessage = message;
-}else{
-	Failure = true;
-	FailureMessage = message;	
-}
-</stringProp>
-              <stringProp name="BeanShellAssertion.filename"></stringProp>
-              <stringProp name="BeanShellAssertion.parameters"></stringProp>
-              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
-            </BeanShellAssertion>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据代价" enabled="true">
+              <stringProp name="dataSource">cust_user_dev</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">explain select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable"></stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree/>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+              <stringProp name="dataSource">cust_user_dev</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">userResult</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;userResult&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="我的-点击个人头像" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${ip}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">${path}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="3373707">name</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">true</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="返回结果解析" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.alibaba.fastjson.JSONObject;
+
+String response_data = prev.getResponseDataAsString(); //获取请求返回值。注意此处只能获取到String类型;
+log.info(&quot;response_data=&quot;+response_data);
+JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">sid-in-header</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">unique_id</stringProp>
+                  <stringProp name="Header.value">034c2c052e3c0d0c</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">app_version</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">openid</stringProp>
+                  <stringProp name="Header.value">5e11b5e9-4eb2-3e97-8aca-6d287f097c52</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">os_version</stringProp>
+                  <stringProp name="Header.value">27</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">system_name</stringProp>
+                  <stringProp name="Header.value">Android</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">serial_number</stringProp>
+                  <stringProp name="Header.value">CLB0218807006723</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">test</stringProp>
+                  <stringProp name="Header.value">123</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">picc-m-sid</stringProp>
+                  <stringProp name="Header.value">${picc-m-sid}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
             <hashTree/>
           </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="异常" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="录入验证码登录------不传password" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="我的-点击个人头像------入参为null" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-	&quot;use_type&quot;: &quot;userlogin&quot;,&#xd;
-	&quot;user_id&quot;: &quot;15101130999&quot;,&#xd;
-	&quot;user_name&quot;: &quot;15101130999&quot;,&#xd;
-	&quot;login_device&quot;: &quot;EML-AL00 HUAWEI&quot;,&#xd;
-	&quot;login_time&quot;: &quot;2020-08-12 02:02:41&quot;,&#xd;
-	&quot;platform&quot;: &quot;8&quot;&#xd;
-}</stringProp>
+                  <stringProp name="Argument.value"></stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -440,57 +361,68 @@ if(&quot;true&quot;.equals(result)){
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="-816664244">&quot;msg&quot;:&quot;密码不能为空&quot;</stringProp>
+                <stringProp name="3373707">name</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">true</boolProp>
               <intProp name="Assertion.test_type">16</intProp>
             </ResponseAssertion>
             <hashTree/>
-          </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="录入验证码登录------不传user_name" enabled="true">
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-	&quot;use_type&quot;: &quot;userlogin&quot;,&#xd;
-	&quot;password&quot;: &quot;KzuPbGHXHs9k5Vklhg1r+LXo2ak5c7WJw5l+OettbD4CiCJrk\/ERozcQAZjw95iow624DAvhAl7yR4oHyDgagg==&quot;,&#xd;
-	&quot;user_id&quot;: &quot;15101130999&quot;,&#xd;
-	&quot;login_device&quot;: &quot;EML-AL00 HUAWEI&quot;,&#xd;
-	&quot;login_time&quot;: &quot;2020-08-12 02:02:41&quot;,&#xd;
-	&quot;platform&quot;: &quot;8&quot;&#xd;
-}</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="返回结果解析" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.alibaba.fastjson.JSONObject;
+
+String response_data = prev.getResponseDataAsString(); //获取请求返回值。注意此处只能获取到String类型;
+log.info(&quot;response_data=&quot;+response_data);
+JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">sid-in-header</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">unique_id</stringProp>
+                  <stringProp name="Header.value">034c2c052e3c0d0c</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">app_version</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">openid</stringProp>
+                  <stringProp name="Header.value">5e11b5e9-4eb2-3e97-8aca-6d287f097c52</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">os_version</stringProp>
+                  <stringProp name="Header.value">27</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">system_name</stringProp>
+                  <stringProp name="Header.value">Android</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">serial_number</stringProp>
+                  <stringProp name="Header.value">CLB0218807006723</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">test</stringProp>
+                  <stringProp name="Header.value">123</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">picc-m-sid</stringProp>
+                  <stringProp name="Header.value">${picc-m-sid}</stringProp>
                 </elementProp>
               </collectionProp>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain">${ip}</stringProp>
-            <stringProp name="HTTPSampler.port">443</stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-            <stringProp name="HTTPSampler.protocol">https</stringProp>
-            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-            <stringProp name="HTTPSampler.path">${path}</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
-            <boolProp name="HTTPSampler.monitor">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
-              <collectionProp name="Asserion.test_strings">
-                <stringProp name="415999012">&quot;msg&quot;:&quot;传入参数为空&quot;</stringProp>
-              </collectionProp>
-              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-              <boolProp name="Assertion.assume_success">true</boolProp>
-              <intProp name="Assertion.test_type">16</intProp>
-            </ResponseAssertion>
+            </HeaderManager>
             <hashTree/>
           </hashTree>
         </hashTree>

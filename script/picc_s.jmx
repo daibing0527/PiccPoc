@@ -13,8 +13,8 @@
     <hashTree>
       <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Test Fragment" enabled="false"/>
       <hashTree>
-        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="核心uat" enabled="true">
-          <stringProp name="dataSource">hexin_uat</stringProp>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="CLIAM_PICCPOROD" enabled="true">
+          <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
           <stringProp name="poolMax">10</stringProp>
           <stringProp name="timeout">10000</stringProp>
           <stringProp name="trimInterval">60000</stringProp>
@@ -22,9 +22,9 @@
           <stringProp name="transactionIsolation">DEFAULT</stringProp>
           <boolProp name="keepAlive">true</boolProp>
           <stringProp name="connectionAge">5000</stringProp>
-          <stringProp name="checkQuery">Select 1</stringProp>
-          <stringProp name="dbUrl">10.135.102.129</stringProp>
-          <stringProp name="driver">org.qlsql.Driver</stringProp>
+          <stringProp name="checkQuery">select 1 from dual</stringProp>
+          <stringProp name="dbUrl">jdbc:oracle:thin:@10.135.102.129:1521:orcl</stringProp>
+          <stringProp name="driver">oracle.jdbc.driver.OracleDriver</stringProp>
           <stringProp name="username">piccprod</stringProp>
           <stringProp name="password">piccuat311</stringProp>
         </JDBCDataSource>
@@ -45,8 +45,8 @@
           <stringProp name="password">releasetest_app</stringProp>
         </JDBCDataSource>
         <hashTree/>
-        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="自服务平台" enabled="true">
-          <stringProp name="dataSource">auto_server</stringProp>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="cust_user_dev" enabled="true">
+          <stringProp name="dataSource">cust_user_dev</stringProp>
           <stringProp name="poolMax">10</stringProp>
           <stringProp name="timeout">10000</stringProp>
           <stringProp name="trimInterval">60000</stringProp>
@@ -55,8 +55,24 @@
           <boolProp name="keepAlive">true</boolProp>
           <stringProp name="connectionAge">5000</stringProp>
           <stringProp name="checkQuery">Select 1</stringProp>
-          <stringProp name="dbUrl">jdbc:mysql:10.137.193.245:3306?useUnicode=true&amp;amp;amp;characterEncoding=utf-8;IFX_USE_STRENC=true</stringProp>
-          <stringProp name="driver">org.mysql.jdbc.Driver</stringProp>
+          <stringProp name="dbUrl">jdbc:mysql://10.137.193.245:3306/cust_user_dev</stringProp>
+          <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+          <stringProp name="username">mysqltest</stringProp>
+          <stringProp name="password">Picclife2019</stringProp>
+        </JDBCDataSource>
+        <hashTree/>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="cust_policy_dev" enabled="true">
+          <stringProp name="dataSource">cust_policy_dev</stringProp>
+          <stringProp name="poolMax">10</stringProp>
+          <stringProp name="timeout">10000</stringProp>
+          <stringProp name="trimInterval">60000</stringProp>
+          <boolProp name="autocommit">true</boolProp>
+          <stringProp name="transactionIsolation">DEFAULT</stringProp>
+          <boolProp name="keepAlive">true</boolProp>
+          <stringProp name="connectionAge">5000</stringProp>
+          <stringProp name="checkQuery">Select 1</stringProp>
+          <stringProp name="dbUrl">jdbc:mysql://10.137.193.245:3306/cust_policy_dev</stringProp>
+          <stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
           <stringProp name="username">mysqltest</stringProp>
           <stringProp name="password">Picclife2019</stringProp>
         </JDBCDataSource>

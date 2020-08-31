@@ -11,7 +11,7 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="首页，查看消息通知" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="点击发送验证码" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -115,7 +115,8 @@
         <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="路径变量" enabled="true">
           <stringProp name="BeanShellSampler.query">//String Srcpath = vars.get(&quot;SrcPath&quot;);
 //vars.put(&quot;path&quot;,Srcpath+&quot;/lifeapp-uic/api/user/login-bind-by-password&quot;);
-vars.put(&quot;path&quot;,&quot;/portal-web/api/msg-notify/get-msg-notify/v1&quot;);
+vars.put(&quot;path&quot;,&quot;/ucsp-web/api/claim/send-phone-code&quot;);
+vars.put(&quot;path1&quot;,&quot;ucsp-web/api/claim/v2/validate-phone-code&quot;);
 
 </stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -196,15 +197,56 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页，查看消息通知" enabled="true">
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="false"/>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据代价" enabled="true">
+              <stringProp name="dataSource">auto_server</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">explain select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable"></stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree/>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+              <stringProp name="dataSource">auto_server</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">userResult</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;userResult&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="点击发送验证码" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;classification_code&quot;:&quot;00201&quot;,&#xd;
-	&quot;city_name&quot;:&quot;北京市&quot;&#xd;
+	&quot;user_id&quot;: &quot;e7b15e6e2c5b418484897adfb8f301aa&quot;,&#xd;
+	&quot;mobile&quot;: &quot;13142534222&quot;,&#xd;
+	&quot;platform&quot;: &quot;8&quot;,&#xd;
+	&quot;business_type&quot;: &quot;claim&quot;,&#xd;
+	&quot;policy_code&quot;: &quot;&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
@@ -229,7 +271,115 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="3373707">name</stringProp>
+                <stringProp name="941842605">code_id</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">true</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="返回结果解析" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.alibaba.fastjson.JSONObject;
+
+String response_data = prev.getResponseDataAsString(); //获取请求返回值。注意此处只能获取到String类型;
+log.info(&quot;response_data=&quot;+response_data);
+JSONObject data = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;
+
+if(data!=null){
+	String codeId = data.get(&quot;code_id&quot;);
+	vars.put(&quot;codeId&quot;,codeId);	
+}
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">sid-in-header</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">unique_id</stringProp>
+                  <stringProp name="Header.value">034c2c052e3c0d0c</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">app_version</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">openid</stringProp>
+                  <stringProp name="Header.value">5e11b5e9-4eb2-3e97-8aca-6d287f097c52</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">os_version</stringProp>
+                  <stringProp name="Header.value">27</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">system_name</stringProp>
+                  <stringProp name="Header.value">Android</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">serial_number</stringProp>
+                  <stringProp name="Header.value">CLB0218807006723</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">test</stringProp>
+                  <stringProp name="Header.value">123</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">picc-m-sid</stringProp>
+                  <stringProp name="Header.value">${picc-m-sid}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="录入验证码点击确认" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;user_id&quot;: &quot;e7b15e6e2c5b418484897adfb8f301aa&quot;,&#xd;
+	&quot;mobile&quot;: &quot;13142534222&quot;,&#xd;
+	&quot;platform&quot;: &quot;8&quot;,&#xd;
+	&quot;business_type&quot;: &quot;claim&quot;,&#xd;
+	&quot;code_id&quot;: &quot;a98c464852e4414e99ce8d039cbfff07&quot;,&#xd;
+	&quot;policy_code&quot;: &quot;&quot;,&#xd;
+	&quot;phone_code&quot;: &quot;000000&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${ip}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">${path1}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1673913782">&quot;验证码验证通过&quot;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">true</boolProp>
@@ -292,104 +442,19 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
               </collectionProp>
             </HeaderManager>
             <hashTree/>
-            <JDBCPostProcessor guiclass="TestBeanGUI" testclass="JDBCPostProcessor" testname="查询对应数据库返回数据" enabled="false">
-              <stringProp name="dataSource">checkbiz</stringProp>
-              <stringProp name="query">SELECT * FROM prp_lthird_party WHERE regist_no=&apos;${registNo}&apos;</stringProp>
-              <stringProp name="queryArguments"></stringProp>
-              <stringProp name="queryArgumentsTypes"></stringProp>
-              <stringProp name="queryTimeout">180</stringProp>
-              <stringProp name="queryType">Select Statement</stringProp>
-              <stringProp name="resultSetHandler">Store as String</stringProp>
-              <stringProp name="resultVariable">prp_Lthird_Party</stringProp>
-              <stringProp name="variableNames"></stringProp>
-            </JDBCPostProcessor>
-            <hashTree/>
-            <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="校验返回结果和数据库结果是否一致" enabled="false">
-              <stringProp name="BeanShellAssertion.query">import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSON;
-
-String status = vars.get(&quot;status&quot;);
-String statusText = vars.get(&quot;statusText&quot;);
-log.info(&quot;status=&quot;+status);
-log.info(&quot;statusText=&quot;+statusText);
-
-if(!status.equals(&quot;0&quot;)){
-	Failure = true;
-	FailureMessage = &quot;返回状态码错误！&quot;;
-	log.info(&quot;返回状态码错误,status:&quot;+status);
-}
-if(!statusText.equals(&quot;Success&quot;)){
-	Failure = true;
-	FailureMessage = &quot;返回状态信息错误！&quot;;
-	log.info(&quot;返回状态信息错误,statusText:&quot;+statusText);
-}
-
-String data = vars.get(&quot;data&quot;);//报文中的data
-log.info(&quot;报文中的data=&quot;+data);
-
-JSONArray prpLthirdParty = JSONArray.parseArray(data);//报文中的prpLthirdParty
-log.info(&quot;报文中的prpLthirdParty=&quot;+prpLthirdParty);
-log.info(&quot;报文中的prpLthirdParty数量=&quot;+prpLthirdParty.size());
-
-JSONArray prp_Lthird_Party = new JSONArray(vars.getObject(&quot;prp_Lthird_Party&quot;)); //数据库中的prp_Lthird_Party
-log.info(&quot;数据库中的prp_Lthird_Party=&quot;+prp_Lthird_Party);
-log.info(&quot;数据库中的prp_Lthird_Party数量=&quot;+prp_Lthird_Party.size());
-
-if(prp_Lthird_Party.size()!=prpLthirdParty.size()){
-	log.info(&quot;数据库中的prp_Lthird_Party数量与报文中的prpLthirdParty数量不相等,prp_Lthird_Party.size=&quot;+prp_Lthird_Party.size()+&quot;prpLthirdParty.size=&quot;+prpLthirdParty.size());
-}else{
-	for(int i=0;i&lt;prp_Lthird_Party.size();i++){
-		if(prpLthirdParty.get(0).get(&quot;thirdpartyId&quot;)!=null &amp;&amp; prp_Lthird_Party.get(0).get(&quot;id&quot;)!=null){
-			if(!(prpLthirdParty.get(0).get(&quot;thirdpartyId&quot;).equals(prp_Lthird_Party.get(0).get(&quot;id&quot;)))){
-//				Failure = true;
-//				FailureMessage = &quot;返回报文中的 id 与数据库不一致！&quot;;
-				log.info(&quot;返回报文中的 id 与数据库不一致&quot;);
-			}else{
-				if(prpLthirdParty.get(0).get(&quot;registNo&quot;)!=null &amp;&amp; prp_Lthird_Party.get(0).get(&quot;regist_no&quot;)!=null){
-					if(!(prpLthirdParty.get(0).get(&quot;registNo&quot;).equals(prp_Lthird_Party.get(0).get(&quot;regist_no&quot;)))){
-						Failure = true;
-						FailureMessage = &quot;返回报文中的 报案号registNo 与数据库不一致！&quot;;
-						log.info(&quot;返回报文中的 报案号registNo 与数据库不一致&quot;);
-					}
-				}
-				if(prpLthirdParty.get(0).get(&quot;lossItemType&quot;)!=null &amp;&amp; prp_Lthird_Party.get(0).get(&quot;loss_item_type&quot;)!=null){
-					if(!(prpLthirdParty.get(0).get(&quot;lossItemType&quot;).equals(prp_Lthird_Party.get(0).get(&quot;loss_item_type&quot;)))){
-						Failure = true;
-						FailureMessage = &quot;返回报文中的 损失项目类型lossItemType 与数据库不一致！&quot;;
-						log.info(&quot;返回报文中的 损失项目类型lossItemType 与数据库不一致&quot;);
-					}
-				}
-				if(prpLthirdParty.get(0).get(&quot;licenseNo&quot;)!=null &amp;&amp; prp_Lthird_Party.get(0).get(&quot;license_no&quot;)!=null){
-					if(!(prpLthirdParty.get(0).get(&quot;licenseNo&quot;).equals(prp_Lthird_Party.get(0).get(&quot;license_no&quot;)))){
-						Failure = true;
-						FailureMessage = &quot;返回报文中的 车牌号licenseNo 与数据库不一致！&quot;;
-						log.info(&quot;返回报文中的 车牌号licenseNo 与数据库不一致&quot;);
-					}
-				}
-			}
-		}
-	}
-}
-
-</stringProp>
-              <stringProp name="BeanShellAssertion.filename"></stringProp>
-              <stringProp name="BeanShellAssertion.parameters"></stringProp>
-              <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
-            </BeanShellAssertion>
-            <hashTree/>
           </hashTree>
         </hashTree>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="异常" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页，查看消息通知------不传classification_code" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="点击发送验证码------不传mobile" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;city_name&quot;:&quot;北京市&quot;&#xd;
+	&quot;platform&quot;:&quot;8&quot;,&#xd;
+	&quot;business_type&quot;:&quot;claimv2&quot;&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
@@ -414,7 +479,93 @@ if(prp_Lthird_Party.size()!=prpLthirdParty.size()){
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="1250498183">&quot;msg&quot;:&quot;分类编码不能为空&quot;</stringProp>
+                <stringProp name="1345129076">&quot;msg&quot;:&quot;必传参数为空</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">true</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">sid-in-header</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">unique_id</stringProp>
+                  <stringProp name="Header.value">034c2c052e3c0d0c</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">app_version</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">openid</stringProp>
+                  <stringProp name="Header.value">5e11b5e9-4eb2-3e97-8aca-6d287f097c52</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">os_version</stringProp>
+                  <stringProp name="Header.value">27</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">system_name</stringProp>
+                  <stringProp name="Header.value">Android</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">serial_number</stringProp>
+                  <stringProp name="Header.value">CLB0218807006723</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">test</stringProp>
+                  <stringProp name="Header.value">123</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">picc-m-sid</stringProp>
+                  <stringProp name="Header.value">${picc-m-sid}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="点击发送验证码-------不传platform" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+	&quot;mobile&quot;:&quot;13011105554&quot;,&#xd;
+	&quot;business_type&quot;:&quot;claimv2&quot;&#xd;
+}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${ip}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">${path}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1345129076">&quot;msg&quot;:&quot;必传参数为空</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">true</boolProp>
