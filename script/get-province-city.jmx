@@ -129,6 +129,10 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/common/get-province-city&quot;);
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询入参" enabled="true"/>
+          <hashTree/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
+          <hashTree/>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页，查看城市列表" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -265,9 +269,9 @@ if(prp_Lthird_Party.size()!=prpLthirdParty.size()){
             <hashTree/>
           </hashTree>
         </hashTree>
-        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="异常" enabled="false"/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="异常" enabled="true"/>
         <hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页，查看城市列表" enabled="true">
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页，查看城市列表------入参为null" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">

@@ -129,6 +129,32 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/app/agent/get-bind-agent-info/v2&q
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询请求数据" enabled="true"/>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="false">
+              <stringProp name="dataSource">auto_server</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">userResult</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;userResult&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录并获取登录状态" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -196,7 +222,7 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据------不做数据校验" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
             <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="false">
               <stringProp name="dataSource">auto_server</stringProp>

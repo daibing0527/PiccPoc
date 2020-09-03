@@ -198,9 +198,9 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="false">
               <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
               <stringProp name="queryType">Select Statement</stringProp>
               <stringProp name="query">select * from t_contract_master where LINK_TEL = &apos;15001097727&apos;</stringProp>

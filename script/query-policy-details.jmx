@@ -129,6 +129,32 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/policyquery/my/query-policy-detail
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询入参" enabled="true"/>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询入参" enabled="false">
+              <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_contract_master where POLICY_CODE = &apos;060527356893158&apos;</stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">t_contract_master</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;userResult&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录并获取登录状态" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -137,13 +163,14 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/policyquery/my/query-policy-detail
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
 	&quot;use_type&quot;: &quot;userlogin&quot;,&#xd;
-	&quot;password&quot;: &quot;YxT4zlkaD9inBsazs6BVp2tO+GI9z\/2mvTAzXLwiDTBfk0qUqAebwlb60HPnKcVNZJI\/P1Eu40pi5Henih9kow==&quot;,&#xd;
-	&quot;user_id&quot;: &quot;13142534222&quot;,&#xd;
-	&quot;user_name&quot;: &quot;13142534222&quot;,&#xd;
-	&quot;login_device&quot;: &quot;OXF-AN00 HONOR&quot;,&#xd;
-	&quot;login_time&quot;: &quot;2020-08-14   08:32:35&quot;,&#xd;
+	&quot;password&quot;: &quot;KzuPbGHXHs9k5Vklhg1r+LXo2ak5c7WJw5l+OettbD4CiCJrk/ERozcQAZjw95iow624DAvhAl7yR4oHyDgagg==&quot;,&#xd;
+	&quot;user_id&quot;: &quot;15101130999&quot;,&#xd;
+	&quot;user_name&quot;: &quot;15101130999&quot;,&#xd;
+	&quot;login_device&quot;: &quot;EML-AL00 HUAWEI&quot;,&#xd;
+	&quot;login_time&quot;: &quot;2020-08-12   02:02:41&quot;,&#xd;
 	&quot;platform&quot;: &quot;8&quot;&#xd;
 }&#xd;
+&#xd;
 &#xd;
 &#xd;
 //{&#xd;
@@ -196,7 +223,7 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
             <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
               <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
@@ -229,7 +256,7 @@ log.info(&quot;userResult======&quot;+userResult);</stringProp>
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;policy_code&quot;: &quot;060527356893158&quot;,&#xd;
+	&quot;policy_code&quot;: &quot;370147864965008&quot;,&#xd;
 	&quot;policy_type&quot;: &quot;1&quot;,&#xd;
 	&quot;platform&quot;: &quot;8&quot;,&#xd;
 	&quot;insured_num&quot;: &quot;&quot;&#xd;

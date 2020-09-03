@@ -115,7 +115,7 @@
         <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="路径变量" enabled="true">
           <stringProp name="BeanShellSampler.query">//String Srcpath = vars.get(&quot;SrcPath&quot;);
 //vars.put(&quot;path&quot;,Srcpath+&quot;/lifeapp-uic/api/user/login-bind-by-password&quot;);
-vars.put(&quot;path&quot;,&quot;/ucsp-web/api/user/query-user&quot;);
+vars.put(&quot;path&quot;,&quot;/ucsp-web/api/policy-change/query-policy-info&quot;);
 
 </stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -129,6 +129,32 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/user/query-user&quot;);
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询入参" enabled="true"/>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询入参" enabled="false">
+              <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_contract_master where policy_code = &apos;230073539389360&apos; </stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">userResult</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;userResult&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录并获取登录状态" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -201,9 +227,9 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
             <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
-              <stringProp name="dataSource">CLAIM_PICCPOROD</stringProp>
+              <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
               <stringProp name="queryType">Select Statement</stringProp>
-              <stringProp name="query">select * from t_cust_user where policy_code = &apos;230073539389360&apos; </stringProp>
+              <stringProp name="query">select * from t_contract_master where policy_code = &apos;230073539389360&apos; </stringProp>
               <stringProp name="queryArguments"></stringProp>
               <stringProp name="queryArgumentsTypes"></stringProp>
               <stringProp name="variableNames"></stringProp>
@@ -230,7 +256,7 @@ log.info(&quot;userResult======&quot;+userResult);</stringProp>
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;policy_code&quot;:&quot;230073539389360&quot;,&quot;ps_type&quot;:&quot;1&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;policy_code&quot;:&quot;370147866152008&quot;,&quot;ps_type&quot;:&quot;1&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -351,7 +377,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
           <hashTree>
             <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
               <collectionProp name="Asserion.test_strings">
-                <stringProp name="3373707">name</stringProp>
+                <stringProp name="554400636">&quot;ret&quot;:&quot;10000&quot;</stringProp>
               </collectionProp>
               <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
               <boolProp name="Assertion.assume_success">true</boolProp>
@@ -410,7 +436,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;policy_code&quot;:&quot;230073539389360&quot;}</stringProp>
+                  <stringProp name="Argument.value">{&quot;policy_code&quot;:&quot;370147866152008&quot;}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>

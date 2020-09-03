@@ -129,6 +129,32 @@ vars.put(&quot;path&quot;,&quot;/ucsp-web/api/policy-change/query-policy-list&qu
         <hashTree/>
         <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="正常" enabled="true"/>
         <hashTree>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询入参" enabled="true"/>
+          <hashTree>
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询入参" enabled="false">
+              <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
+              <stringProp name="queryType">Select Statement</stringProp>
+              <stringProp name="query">select * from t_contract_master where LINK_TEL = &apos;15101130999&apos;</stringProp>
+              <stringProp name="queryArguments"></stringProp>
+              <stringProp name="queryArgumentsTypes"></stringProp>
+              <stringProp name="variableNames"></stringProp>
+              <stringProp name="resultVariable">t_contract_master</stringProp>
+              <stringProp name="queryTimeout">180</stringProp>
+              <stringProp name="resultSetHandler">Store as String</stringProp>
+            </JDBCSampler>
+            <hashTree>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;t_contract_master&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="登录并获取登录状态" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -196,9 +222,9 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
             </BeanShellPostProcessor>
             <hashTree/>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="false">
               <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
               <stringProp name="queryType">Select Statement</stringProp>
               <stringProp name="query">select * from t_contract_master where LINK_TEL = &apos;15101130999&apos;</stringProp>
@@ -220,6 +246,32 @@ Object userResult = vars.getObject(&quot;t_contract_master&quot;);
 log.info(&quot;userResult======&quot;+userResult);</stringProp>
               </BeanShellPostProcessor>
               <hashTree/>
+            </hashTree>
+            <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="false"/>
+            <hashTree>
+              <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+                <stringProp name="dataSource">CLIAM_PICCPOROD</stringProp>
+                <stringProp name="queryType">Select Statement</stringProp>
+                <stringProp name="query">select * from t_contract_master where LINK_TEL = &apos;15101130999&apos;</stringProp>
+                <stringProp name="queryArguments"></stringProp>
+                <stringProp name="queryArgumentsTypes"></stringProp>
+                <stringProp name="variableNames"></stringProp>
+                <stringProp name="resultVariable">t_contract_master</stringProp>
+                <stringProp name="queryTimeout">180</stringProp>
+                <stringProp name="resultSetHandler">Store as String</stringProp>
+              </JDBCSampler>
+              <hashTree>
+                <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="打印返回数据" enabled="true">
+                  <boolProp name="resetInterpreter">false</boolProp>
+                  <stringProp name="parameters"></stringProp>
+                  <stringProp name="filename"></stringProp>
+                  <stringProp name="script">import java.util.Random;
+
+Object userResult = vars.getObject(&quot;t_contract_master&quot;);
+log.info(&quot;userResult======&quot;+userResult);</stringProp>
+                </BeanShellPostProcessor>
+                <hashTree/>
+              </hashTree>
             </hashTree>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="首页点击保单变更" enabled="true">

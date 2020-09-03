@@ -117,6 +117,8 @@
 //vars.put(&quot;path&quot;,Srcpath+&quot;/lifeapp-uic/api/user/login-bind-by-password&quot;);
 vars.put(&quot;path&quot;,&quot;/ucsp-web/api/claim/send-phone-code&quot;);
 vars.put(&quot;path1&quot;,&quot;ucsp-web/api/claim/v2/validate-phone-code&quot;);
+vars.put(&quot;path2&quot;,&quot;ucsp-web/api/claim/check-user-authority&quot;);
+
 
 </stringProp>
           <stringProp name="BeanShellSampler.filename"></stringProp>
@@ -235,6 +237,106 @@ log.info(&quot;userResult======&quot;+userResult);</stringProp>
               <hashTree/>
             </hashTree>
           </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="check-user-authority" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${ip}</stringProp>
+            <stringProp name="HTTPSampler.port">443</stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">${path2}</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+            <boolProp name="HTTPSampler.monitor">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="响应断言" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1068855134">mobile</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">true</boolProp>
+              <intProp name="Assertion.test_type">16</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="返回结果解析" enabled="true">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import com.alibaba.fastjson.JSONObject;
+
+String response_data = prev.getResponseDataAsString(); //获取请求返回值。注意此处只能获取到String类型;
+log.info(&quot;response_data=&quot;+response_data);
+JSONObject data = JSONObject.parseObject(response_data); //将String类型的返回值构造成JSONObject对象,才可使用Java对象的方法对其进行操作;
+
+if(data!=null){
+	String codeId = data.get(&quot;code_id&quot;);
+	vars.put(&quot;codeId&quot;,codeId);	
+}
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">sid-in-header</stringProp>
+                  <stringProp name="Header.value">1</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">unique_id</stringProp>
+                  <stringProp name="Header.value">034c2c052e3c0d0c</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">app_version</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">openid</stringProp>
+                  <stringProp name="Header.value">5e11b5e9-4eb2-3e97-8aca-6d287f097c52</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">os_version</stringProp>
+                  <stringProp name="Header.value">27</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">system_name</stringProp>
+                  <stringProp name="Header.value">Android</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">serial_number</stringProp>
+                  <stringProp name="Header.value">CLB0218807006723</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">test</stringProp>
+                  <stringProp name="Header.value">123</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/json</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">picc-m-sid</stringProp>
+                  <stringProp name="Header.value">${picc-m-sid}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="点击发送验证码" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -348,11 +450,11 @@ if(data!=null){
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;user_id&quot;: &quot;e7b15e6e2c5b418484897adfb8f301aa&quot;,&#xd;
-	&quot;mobile&quot;: &quot;13142534222&quot;,&#xd;
+	&quot;user_id&quot;: &quot;15101130999&quot;,&#xd;
+	&quot;mobile&quot;: &quot;15101130999&quot;,&#xd;
 	&quot;platform&quot;: &quot;8&quot;,&#xd;
 	&quot;business_type&quot;: &quot;claim&quot;,&#xd;
-	&quot;code_id&quot;: &quot;a98c464852e4414e99ce8d039cbfff07&quot;,&#xd;
+	&quot;code_id&quot;: &quot;bd4db8fad2cb4b1e9ee31332f9856d7c&quot;,&#xd;
 	&quot;policy_code&quot;: &quot;&quot;,&#xd;
 	&quot;phone_code&quot;: &quot;000000&quot;&#xd;
 }</stringProp>
