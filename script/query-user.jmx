@@ -83,7 +83,7 @@
             </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">app_version</stringProp>
-              <stringProp name="Header.value">300</stringProp>
+              <stringProp name="Header.value">210</stringProp>
             </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">openid</stringProp>
@@ -224,7 +224,7 @@ vars.put(&quot;picc-m-sid&quot;,token);</stringProp>
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="查询返回数据" enabled="true"/>
           <hashTree>
-            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="true">
+            <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="查询返回数据" enabled="false">
               <stringProp name="dataSource">cust_user_dev</stringProp>
               <stringProp name="queryType">Select Statement</stringProp>
               <stringProp name="query">select * from t_cust_user where user_name = &apos;15101130999&apos; </stringProp>
@@ -308,7 +308,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">app_version</stringProp>
-                  <stringProp name="Header.value">300</stringProp>
+                  <stringProp name="Header.value">210</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">openid</stringProp>
@@ -405,7 +405,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">app_version</stringProp>
-                  <stringProp name="Header.value">300</stringProp>
+                  <stringProp name="Header.value">210</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">openid</stringProp>

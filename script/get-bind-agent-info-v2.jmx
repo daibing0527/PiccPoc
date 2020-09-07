@@ -83,7 +83,7 @@
             </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">app_version</stringProp>
-              <stringProp name="Header.value">300</stringProp>
+              <stringProp name="Header.value">210</stringProp>
             </elementProp>
             <elementProp name="" elementType="Header">
               <stringProp name="Header.name">openid</stringProp>
@@ -308,7 +308,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">app_version</stringProp>
-                  <stringProp name="Header.value">300</stringProp>
+                  <stringProp name="Header.value">210</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">openid</stringProp>
@@ -394,7 +394,7 @@ JSONObject data_obj = JSONObject.parseObject(response_data); //将String类型�
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">app_version</stringProp>
-                  <stringProp name="Header.value">300</stringProp>
+                  <stringProp name="Header.value">210</stringProp>
                 </elementProp>
                 <elementProp name="" elementType="Header">
                   <stringProp name="Header.name">openid</stringProp>
